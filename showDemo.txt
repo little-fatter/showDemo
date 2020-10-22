@@ -1,1 +1,5 @@
 展示静态页面
+
+backgroundmanage  ——  https://little-fatter.github.io/showDemo/backgroundmanage/index.html
+
+react-realworld          ——  https://little-fatter.github.io/showDemo/react-realworld/index.html
