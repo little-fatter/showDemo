@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>My dice</title>
+    <link rel="stylesheet" href="./dice.css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="mute">
+          <input type="checkbox" id="mute" name="mute">
+          <label for="mute">mute</label>
+        </div>
+        <div id="hide">
+          <svg class="icon" style="width: 4em;height: 4em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3185"><path d="M240.64 794.112l-36.1984-36.352L783.7184 178.688l36.1984 36.352z m296.96-461.312h19.3536l-19.3536 19.456V332.8z m-153.6 102.4v-51.2h51.2v51.2h-51.2z m102.4-102.4v51.2h-51.2v-51.2h51.2z m0 70.656V384h19.3536zM512 179.2A230.4 230.4 0 0 0 281.6 409.6a225.6384 225.6384 0 0 0 53.1456 145.408l-36.4032 36.352A276.736 276.736 0 0 1 230.4 409.6 281.6 281.6 0 0 1 512 128a278.4256 278.4256 0 0 1 181.6576 68.096l-36.1984 36.352A227.84 227.84 0 0 0 512 179.2z m-76.8 512h204.8V768a128 128 0 0 1-256 0v-45.056l31.7952-31.744H435.2z m0 76.8a76.3904 76.3904 0 0 0 51.2 71.68v-46.08h51.2v46.08a76.3904 76.3904 0 0 0 51.2-71.68v-25.6h-153.6v25.6z m204.8-128h-51.2v-14.336a225.7408 225.7408 0 0 0 149.4528-257.024l41.6256-41.472a273.92 273.92 0 0 1-139.8784 331.776v-18.944z" fill="#525252" p-id="3186"></path></svg>
+        </div>
+        <div>
+            <h1>
+                let's fun!
+            </h1>
+            <div class="operator">
+              <button id="rollem">Roll em!</button>
+              <button id="addem">add em!</button>
+              <ul>
+                  <li class="selected" number="0"></li>
+                  <li number="1"></li>
+                  <li number="2"></li>
+                  <li number="3"></li>
+                  <li number="4"></li>
+                  <li number="5"></li>
+                  <li number="6"></li>
+                  <li number="7"></li>
+                  <li number="8"></li>
+              </ul>
+            </div>
+        </div>
+        <div id="dice-box"></div>
+    </div>
+    <div class="cap">
+      <svg class="icon" style="width: 20em;height: 20em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8282"><path d="M512.7 731.2c173.8 0 326.5-28.8 414.9-72.4 2.4-19.4 4.1-39 4.1-59.1 0-258.1-187.5-467.4-418.9-467.4-231.4 0-418.9 209.3-418.9 467.4 0 20.1 1.7 39.7 4 59.1 88.3 43.5 241 72.4 414.8 72.4" fill="#52504F" p-id="8283"></path><path d="M947.4 686.6c-84.1 49.5-247.2 83-434.7 83s-350.6-33.5-434.7-83c-38.5 22.7-60.6 48.6-60.6 76.3 0 88.1 221.7 159.5 495.2 159.5s495.2-71.4 495.2-159.5c0.1-27.6-22-53.6-60.4-76.3M606.6 141c0 30.1-42 54.5-93.9 54.5-51.9 0-93.9-24.4-93.9-54.5s42-54.5 93.9-54.5c51.9 0 93.9 24.4 93.9 54.5" fill="#52504F" p-id="8284"></path></svg>
+    </div>
+    <div class="loading">
+        <div class="load-man">
+        </div>
+    </div>
+    <script type="module" src="./dice.js"></script>
+  </body>
+</html>
