@@ -5,8 +5,6 @@ const music = new Audio('./dice.mp3');
 let Box = new DiceBox("#dice-box", {
   assetPath: "assets/",
   origin: "https://unpkg.com/@3d-dice/dice-box@1.0.8/dist/",
-  theme: "default",
-  themeColor: "#feea03",
   offscreen: true,
   scale: 6
 });
@@ -40,16 +38,21 @@ let color = colors[0]
 function get_random(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
-
+function playMusic () {
+  if (!mute.checked) {
+    navigator.vibrate([500, 300, 400]);
+    music.play();
+  }
+}
 rollem.addEventListener("click", (e) => {
-  !mute.checked && music.play();
+  playMusic()
   Box.roll("5d6", {
     themeColor: color
   });
 });
 
 addem.addEventListener("click", (e) => {
-    !mute.checked && music.play();
+    playMusic()
     Box.add("1d6", {
       themeColor: color
     });
@@ -67,8 +70,9 @@ cap.addEventListener('click', () => {
 })
 
 ul.addEventListener('click', (e) => {
-  document.querySelector('li.selected').removeAttribute('class')
-  e.target.setAttribute('class','selected')
-  color = colors[e.target.getAttribute('number')]
-  console.log(color)
+  if (e.target.nodeName === 'LI') {
+    document.querySelector('li.selected')?.removeAttribute('class')
+    e.target.setAttribute('class','selected')
+    color = colors[e.target.getAttribute('number')]
+  }
 })
