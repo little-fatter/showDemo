@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+  <div>
+    <button onclick="getPermission()">授权</button>
+  </div>
+  <script>
+    const isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (window.DeviceOrientationEvent) {
+     if (!isIOS) {
+         window.addEventListener('devicemotion',deviceMotionHandler,false)
+     }
+    } else {
+        console.log('不支持陀螺仪');
+    }
+    function getPermission() {
+      if (
+        typeof window.DeviceMotionEvent !== 'undefined' &&
+        typeof window.DeviceMotionEvent.requestPermission === 'function'
+      ) {
+        window.DeviceMotionEvent.requestPermission()
+          .then(function(state) {
+            if ('granted' === state) {
+              window.addEventListener('devicemotion',deviceMotionHandler,false)
+            } else {
+              alert('摇一摇需要授权设备运动权限,请重启应用后,再次进行授权!')
+            }
+          })
+          .catch(function(err) {
+            alert('error: ' + err)
+          })
+      }
+    }
+    // //获取加速度信息
+    // //通过监听上一步获取到的x, y, z 值在一定时间范围内的变化率，进行设备是否有进行晃动的判断。
+    // //而为了防止正常移动的误判，需要给该变化率设置一个合适的临界值。
+    const SHAKE_THRESHOLD = 4000;
+    let last_update = 0;
+    let x, y, z, last_x = 0, last_y = 0, last_z = 0;
+    function deviceMotionHandler(eventData) {
+        var acceleration =eventData.accelerationIncludingGravity;
+        var curTime = new Date().getTime();
+        if ((curTime-last_update)> 10) {
+            var diffTime = curTime -last_update;
+            last_update = curTime;
+            x = acceleration.x;
+            y = acceleration.y;
+            z = acceleration.z;
+            var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+            if (speed > SHAKE_THRESHOLD) {
+                vibration(); 
+            }
+            last_x = x;
+            last_y = y;
+            last_z = z;
+        }
+    }
+    function vibration(){
+        navigator.vibrate = navigator.vibrate
+                  || navigator.webkitVibrate
+                  || navigator.mozVibrate
+                  || navigator.msVibrate;
+
+          if (navigator.vibrate) {
+              console.log("支持设备震动！");
+              navigator.vibrate([500, 300, 400]);
+          }
+    }
+  </script>
+</body>
+</html>
