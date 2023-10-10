@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image2dataUrl</title>
+    <style>
+        #result {
+            width: 100%;
+            min-height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <image id="image"></image>
+    </div>
+    <div>
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg" />
+    </div>
+    <div>
+        <textarea id="result"></textarea>
+    </div>
+    <script>
+        var image = document.getElementById("image");
+        var fileInput = document.getElementById("fileInput");
+        var result = document.getElementById("result");
+        fileInput.addEventListener("change", updateImageDisplay);
+        function updateImageDisplay() {
+            const curFiles = fileInput.files;
+            if (curFiles.length === 0) {
+                result.innerText = '';
+                image.src = ''
+            } else {
+                for (const file of curFiles) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(e){
+                        image.src = e.target.result
+                        result.innerText = e.target.result
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
