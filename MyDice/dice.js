@@ -42,7 +42,7 @@ let accelerateX, accelerateY, accelerateZ, last_accelerateX = 0, last_accelerate
 })()
 
   (function initDevicemotion() {
-    if (window.DeviceOrientationEvent) {
+    if (window.DeviceMotionEvent) {
       if (isIOS) {
         empowerBtn.style.display = "inline-block";
       } else {
