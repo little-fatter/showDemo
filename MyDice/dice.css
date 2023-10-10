@@ -25,6 +25,9 @@ body {
     justify-content: center;
     flex-wrap: wrap;
 }
+.IOSOnly {
+  display: none;
+}
 #dice-box {
   box-sizing: border-box;
   flex: 1;
