@@ -53,6 +53,7 @@
             z = acceleration.z;
             var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
             if (speed > SHAKE_THRESHOLD) {
+                alert('shakeing')
                 vibration(); 
             }
             last_x = x;
