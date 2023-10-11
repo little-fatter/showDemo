@@ -8,7 +8,7 @@ const switcher = document.getElementById('hide');
 const cap = document.querySelector('.cap');
 const ul = document.getElementsByTagName('ul')[0];
 const empowerBtn = document.querySelector('.IOSOnly');
-let DiceBox, couldRollDice = true;
+let DiceBox, couldRollDice = true, perceiveMotion = false;
 const colors = [
   "#9c27b0",
   "#22BABB",
@@ -26,7 +26,12 @@ const SHAKE_THRESHOLD = 4000;
 let last_updateTime = 0;
 let accelerateX, accelerateY, accelerateZ, last_accelerateX = 0, last_accelerateY = 0, last_accelerateZ = 0;
 
-(function InitDice() {
+(function () {
+  InitDice()
+  InitDevicemotion()
+})()
+
+function InitDice() {
   DiceBox = new DiceBoxConstructor("#dice-box", {
     assetPath: "assets/",
     origin: "https://unpkg.com/@3d-dice/dice-box@1.0.8/dist/",
@@ -35,23 +40,24 @@ let accelerateX, accelerateY, accelerateZ, last_accelerateX = 0, last_accelerate
   });
 
   DiceBox.init().then(async () => {
+    perceiveMotion = true
     document.querySelector('.loading').remove()
     addListeners()
   });
   DiceBox.onRollComplete = () => couldRollDice = true
-})()
+}
 
-  (function initDevicemotion() {
-    if (window.DeviceMotionEvent) {
-      if (isIOS) {
-        empowerBtn.style.display = "inline-block";
-      } else {
-        window.addEventListener('devicemotion', deviceMotionHandler, false)
-      }
+function InitDevicemotion() {
+  if (window.DeviceMotionEvent) {
+    if (isIOS) {
+      empowerBtn.style.display = "inline-block";
     } else {
-      alert('不支持摇一摇！');
+      window.addEventListener('devicemotion', deviceMotionHandler, false)
     }
-  })()
+  } else {
+    alert('不支持摇一摇！');
+  }
+}
 
 function playMusic() {
   if (!mute.checked) {
@@ -89,6 +95,7 @@ function getPermission() {
 }
 
 function deviceMotionHandler(eventData) {
+  if(!perceiveMotion) return
   const acceleration = eventData.accelerationIncludingGravity;
   const curTime = new Date().getTime();
   if ((curTime - last_updateTime) > 10) {
@@ -122,16 +129,22 @@ function addListeners() {
   });
 
   dice_table.addEventListener("click", function clearDice() {
+    couldRollDice = true
     DiceBox.clear();
   });
 
   switcher.addEventListener('click', function closeLight() {
+    // Pause deviceMotion listener when cap opened
+    perceiveMotion = false
     cap.style.display = 'flex'
   })
 
   cap.addEventListener('click', function openLight() {
+    perceiveMotion = true
     cap.style.display = 'none'
   })
+
+  empowerBtn.addEventListener('click', getPermission)
 
   ul.addEventListener('click', function selectColor(e) {
     if (e.target.nodeName === 'LI') {
