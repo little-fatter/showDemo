@@ -1,0 +1,64 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#333333">
+    <meta name="description" content="♠︎ Vivid, registration-free, easy-to-use Scrum poker">
+    <title>MyPokerFun</title>
+    <link href="./poker.css" rel="stylesheet">
+    <script src="./poker.mjs" type="module"></script>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="App">
+            <div class="Room">
+                <div class="Share">
+                    <h1><strong>My </strong>poker Fun</h1>
+                </div>
+                <div class="SiteNotification">
+                    <p>Reduced version for internal use.</p>
+                </div>
+                <div class="Join">
+                    <form id="form">
+                        Observe or
+                        <input type="text" name="myName" placeholder="type in your name" required="" />
+                        to
+                        <button type="submit">Play</button>
+                    </form>
+                </div>
+                <div class="Actions">
+                    <ul class="scores">
+                        <li><button class="" value="0">0</button></li>
+                        <li><button class="" value="½">½</button></li>
+                        <li><button class="" value="1">1</button></li>
+                        <li><button class="" value="2">2</button></li>
+                        <li><button class="" value="3">3</button></li>
+                        <li><button class="" value="5">5</button></li>
+                        <li><button class="" value="8">8</button></li>
+                        <li><button class="" value="13">13</button></li>
+                        <li><button class="" value="20">20</button></li>
+                        <li><button class="" value="40">40</button></li>
+                        <li><button class="" value="100">100</button></li>
+                        <li><button class="" value="❓">❓</button></li>
+                        <li><button class="" value="🐞">🐞</button></li>
+                        <li><button class="" value="☕">☕</button></li>
+                    </ul>
+                    <ul class="operations">
+                        <li>
+                            <button id="showScore">Show</button>
+                            <button id="clearScore" class="danger">Clear</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="Votes">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
