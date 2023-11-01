@@ -1,4 +1,3 @@
-// import WebSocket from 'ws';
 function getQueryString(name) {
     let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     let r = window.location.search.substr(1).match(reg);
@@ -9,7 +8,6 @@ function getQueryString(name) {
 }
 
 (function() {
-    // const WebSocket = require('/Users/zwang/.volta/tools/shared/ws');
 
     const id = getQueryString('id');
 
@@ -20,6 +18,7 @@ function getQueryString(name) {
 
     const url = 'ws://localhost:8080';
     const connection = new WebSocket(url);
+
     const eventMaps = {
         Join: 'Join',
         Score: 'Score',
@@ -145,17 +144,14 @@ function getQueryString(name) {
         clear()
     })
 
-    window.addEventListener("beforeunload", (event) => {
+    window.addEventListener("unload", (event) => {
         quit()
-        // Cancel the event as stated by the standard.
-        event.preventDefault();
-        // Chrome requires returnValue to be set.
-        event.returnValue = "";
-      });
+    });
 
-    connection.addEventListener("onerror", function (error) {
-        wsIsOpen = false
-        console.log(`WebSocket error: ${error}`)
+    connection.addEventListener("error", function (error) {
+        alert('websocket failed');
+        wsIsOpen = false;
+        console.error('WebSocket error: ', error);
     });
     
     // Listen for messages
