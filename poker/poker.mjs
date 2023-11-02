@@ -16,7 +16,7 @@ function getQueryString(name) {
         return 
     }
 
-    const url = 'ws://localhost:8080';
+    const url = 'ws://123.249.71.200/chat/';
     const connection = new WebSocket(url);
 
     const eventMaps = {
@@ -163,6 +163,8 @@ function getQueryString(name) {
             switchView();
             switchButton(instance);
             createList(instance);
+        } else if ( data.status === 'connectReturn' ) {
+            console.log('connect success!')
         } else {
             console.error(data.error)
         }
