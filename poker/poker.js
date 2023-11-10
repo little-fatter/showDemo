@@ -12,8 +12,8 @@ function getQueryString(name) {
     const id = getQueryString('id');
 
     if(!id && id !== 0) {
-        alert('id is required!')
-        return 
+        alert('id is required!');
+        return ;
     }
 
     const url = 'ws://123.249.71.200/chat/';
@@ -24,7 +24,7 @@ function getQueryString(name) {
         Score: 'Score',
         Clean: 'Clean',
         Show: 'Show',
-        Quit: 'Quit',
+        // Quit: 'Quit',
       }
     const ul = document.querySelector('.scores');
     const form = document.getElementById('form');
@@ -39,15 +39,15 @@ function getQueryString(name) {
     let userName;
 
     function wsSend(data) {
-        wsIsOpen && connection.send(JSON.stringify({id, ...data}))
+        wsIsOpen && connection.send(JSON.stringify({id, ...data}));
     }
 
     function submitForm(e) {
-        userName = e.target[0].value
+        userName = e.target[0].value;
         wsSend({
             eventType: eventMaps.Join,
             name: userName,
-        })
+        });
         event.preventDefault();
     }
 
@@ -55,44 +55,44 @@ function getQueryString(name) {
         wsSend({
             eventType: eventMaps.Score,
             name: userName,
-            score: value
+            score: value,
         })
     }
 
     function show() {
         wsSend({
             eventType: eventMaps.Show,
-            name: userName
+            name: userName,
         })
     }
 
     function clear() {
         wsSend({
             eventType: eventMaps.Clean,
-            name: userName
+            name: userName,
         })
     }
 
-    function quit() {
-        wsSend({
-            eventType: eventMaps.Quit,
-            name: userName
-        })
-    }
+    // function quit() {
+    //     wsSend({
+    //         eventType: eventMaps.Quit,
+    //         name: userName
+    //     })
+    // }
 
     function createList(instance) {
         selfInstance = instance[userName];
         instanceGroup = instance ? Object.values(instance) : [];
-        setCheckedScore(selfInstance)
-        generateVotes(instanceGroup)
+        setCheckedScore(selfInstance);
+        generateVotes(instanceGroup);
     }
 
     function setCheckedScore(selfInstance) {
         Array.from(ul.children).forEach(li => {
-            const target = li.children[0] || {}
-            target.classList?.remove('selected')
+            const target = li.children[0] || {};
+            target.classList?.remove('selected');
             if(target.getAttribute('value') === selfInstance.score) {
-                target.classList?.add('selected')
+                target.classList?.add('selected');
             }
         })
     }
@@ -112,9 +112,9 @@ function getQueryString(name) {
                             </dd>
                             <dt>${instance.name}</dt>
                         </li>
-                    `
+                    `;
         })
-        VotesPart.innerHTML = `<ul>${childs.join('')}</ul>`
+        VotesPart.innerHTML = `<ul>${childs.join('')}</ul>`;
     }
 
     function switchView() {
@@ -125,7 +125,7 @@ function getQueryString(name) {
 
     function switchButton(instance) {
         instanceGroup = instance ? Object.values(instance) : [];
-        const showClear = instanceGroup.some(instance => instance.showManipulator)
+        const showClear = instanceGroup.some(instance => instance.showManipulator);
         showScoreBtn.style.display = showClear ? 'none' : 'block';
         clearScoreBtn.style.display = showClear ? 'block' : 'none';
     }
@@ -133,44 +133,46 @@ function getQueryString(name) {
     form.addEventListener("submit", submitForm);
 
     ul.addEventListener('click', function(e) {
-        score(e.target.value)
+        score(e.target.value);
     })
 
-    showScoreBtn.addEventListener('click', function() {
-        show()
-    })
+    showScoreBtn.addEventListener('click', show)
 
-    clearScoreBtn.addEventListener('click', function() {
-        clear()
-    })
+    clearScoreBtn.addEventListener('click', clear)
 
-    window.addEventListener("unload", (event) => {
-        quit()
-    });
+    // window.addEventListener("unload", (event) => {
+    //     quit()
+    // });
 
-    connection.addEventListener("error", function (error) {
+    connection.addEventListener("error", function(error) {
         alert('websocket failed');
         wsIsOpen = false;
         console.error('WebSocket error: ', error);
     });
     
     // Listen for messages
-    connection.addEventListener("message", function (e) {
+    connection.addEventListener("message", function(e) {
         const data = e.data && JSON.parse(e.data);
-        console.log(e.data, data);
         if(data.success) {
             const { instance } = data;
             switchView();
             switchButton(instance);
             createList(instance);
         } else if ( data.status === 'connectReturn' ) {
-            console.log('connect success!')
+            console.log('connect success!');
         } else {
-            console.error(data.error)
+            console.error(data.error);
         }
     });
 
-    connection.addEventListener('open',()=>{
-        wsIsOpen = true
-    })
+    connection.addEventListener('open', () => {
+        wsIsOpen = true;
+    });
+
+    connection.addEventListener('close', function() {
+        if(wsIsOpen) {
+            window.alert('websocket disconnected');
+            location.reload();
+        }
+    });
 })()
