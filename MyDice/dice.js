@@ -25,23 +25,12 @@ const isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 const SHAKE_THRESHOLD = 4000;
 let last_updateTime = 0;
 let accelerateX, accelerateY, accelerateZ, last_accelerateX = 0, last_accelerateY = 0, last_accelerateZ = 0;
-let isAudioReady, isDiceReady;
 
 (function () {
   InitDice()
   InitDevicemotion()
 })()
 
-music.addEventListener('canplay',() => {
-  isAudioReady = true
-  removeLoading()
-})
-function removeLoading() {
-  if(isAudioReady && isDiceReady) {
-    document.querySelector('.loading').remove()
-    addListeners()
-  }
-}
 function InitDice() {
   DiceBox = new DiceBoxConstructor("#dice-box", {
     assetPath: "assets/",
@@ -52,8 +41,8 @@ function InitDice() {
 
   DiceBox.init().then(async () => {
     perceiveMotion = true
-    isDiceReady = true
-    removeLoading()
+    document.querySelector('.loading').remove()
+    addListeners()
   });
   DiceBox.onRollComplete = () => couldRollDice = true
 }
