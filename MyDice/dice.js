@@ -1,6 +1,6 @@
 import DiceBoxConstructor from "https://unpkg.com/@3d-dice/dice-box@1.0.8/dist/dice-box.es.min.js";
 
-let music;
+const music = new Audio('./dice.mp3');
 const rollem = document.getElementById("rollem");
 const addem = document.getElementById("addem");
 const mute = document.getElementById("mute");
@@ -25,22 +25,23 @@ const isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 const SHAKE_THRESHOLD = 4000;
 let last_updateTime = 0;
 let accelerateX, accelerateY, accelerateZ, last_accelerateX = 0, last_accelerateY = 0, last_accelerateZ = 0;
+let isAudioReady, isDiceReady;
 
-(async function () {
-  await loadResource()
+(function () {
   InitDice()
   InitDevicemotion()
 })()
 
-async function loadResource() {
-  return new Promise(resolve => {
-    music = new Audio('./dice.mp3')
-    music.addEventListener("canplaythrough", () => {
-      resolve()
-    });
-  })
+music.addEventListener('canplay',() => {
+  isAudioReady = true
+  removeLoading()
+})
+function removeLoading() {
+  if(isAudioReady && isDiceReady) {
+    document.querySelector('.loading').remove()
+    addListeners()
+  }
 }
-
 function InitDice() {
   DiceBox = new DiceBoxConstructor("#dice-box", {
     assetPath: "assets/",
@@ -51,8 +52,8 @@ function InitDice() {
 
   DiceBox.init().then(async () => {
     perceiveMotion = true
-    document.querySelector('.loading').remove()
-    addListeners()
+    isDiceReady = true
+    removeLoading()
   });
   DiceBox.onRollComplete = () => couldRollDice = true
 }
