@@ -10,6 +10,19 @@ function getQueryString(name) {
 (function() {
 
     const id = getQueryString('id');
+    const scroeValueMap = {
+        "0": 0,
+        "½": 0.5,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "5": 5,
+        "8": 8,
+        "13": 13,
+        "20": 20,
+        "40": 40,
+        "100": 100
+    };
 
     if(!id && id !== 0) {
         alert('id is required!');
@@ -97,6 +110,46 @@ function getQueryString(name) {
         })
     }
 
+    function calcMode(validScoredInstance) {
+        const countList = {};
+        let mode, modeCount = 0;
+        validScoredInstance.forEach(instance => {
+            countList[instance.score] ? countList[instance.score] ++ : countList[instance.score] = 1
+        })
+        Object.keys(countList).forEach(score => {
+            if(countList[score] > modeCount) {
+                modeCount = countList[score]
+                mode = score
+            }
+        })
+        return mode
+    }
+
+    function calcAVG(validScoredInstance) {
+        return (validScoredInstance.reduce((sum, instance) => {
+            return sum + scroeValueMap[instance.score];
+        }, 0) / validScoredInstance.length).toFixed(2);
+    }
+
+    function mountSums() {
+        unMountSums();
+        const validScoredInstance = instanceGroup.filter(instance => {
+            return scroeValueMap[instance.score] || scroeValueMap[instance.score] === 0
+        });
+        const mode = calcMode(validScoredInstance);
+        const avg = calcAVG(validScoredInstance);
+        const sums = document.createElement("div");
+        sums.id = "score-sum";
+        sums.className="SiteNotification"
+        sums.innerHTML = `AVG: ${avg}; Mode: ${mode}`;
+        ActionsPart.after(sums);
+    }
+
+    function unMountSums() {
+        const sums = document.querySelector("#score-sum");
+        sums && sums.parentNode.removeChild(sums);
+    }
+
     function generateVotes(instances) {
         const childs = instances.map(instance => {
             return `
@@ -126,6 +179,7 @@ function getQueryString(name) {
     function switchButton(instance) {
         instanceGroup = instance ? Object.values(instance) : [];
         const showClear = instanceGroup.some(instance => instance.showManipulator);
+        showClear ? mountSums() : unMountSums();
         showScoreBtn.style.display = showClear ? 'none' : 'block';
         clearScoreBtn.style.display = showClear ? 'block' : 'none';
     }
