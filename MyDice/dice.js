@@ -61,7 +61,7 @@ function InitDevicemotion() {
 
 function playMusic() {
   if (!mute.checked) {
-    navigator.vibrate([500, 300, 400]);
+    navigator.vibrate?.([500, 300, 400]);
     music.play();
   }
 }
