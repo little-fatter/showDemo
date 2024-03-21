@@ -93,6 +93,13 @@ function getQueryString(name) {
     //     })
     // }
 
+    function postResult(data) {
+        window.parent.postMessage(JSON.stringify({ 
+            from: "IPF",
+            type: "notification",
+            data,
+         }), "*")
+    }
     function createList(instance) {
         selfInstance = instance[userName];
         instanceGroup = instance ? Object.values(instance) : [];
@@ -142,6 +149,7 @@ function getQueryString(name) {
         sums.id = "score-sum";
         sums.className="SiteNotification"
         sums.innerHTML = `AVG: ${avg}; Mode: ${mode}`;
+        postResult({ avg, mode });
         ActionsPart.after(sums);
     }
 
