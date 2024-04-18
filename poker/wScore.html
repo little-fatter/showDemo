@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#333333">
-    <meta name="description" content="♠︎ Vivid, registration-free, easy-to-use Scrum poker">
-    <title>MyPokerFun</title>
-    <link href="./poker.css" rel="stylesheet">
+    <meta name="description" content="easy-to-use Scorer">
+    <title>wScorer</title>
+    <link href="./wScore.css" rel="stylesheet">
 </head>
 
 <body>
@@ -16,18 +16,19 @@
         <div class="App">
             <div class="Room">
                 <div class="Share">
-                    <h1><strong>My </strong>poker Fun</h1>
+                    <h1><strong>wScorer</strong></h1>
                 </div>
                 <div class="SiteNotification">
                     <p>Reduced version for internal use.</p>
-                    <p style="color: red;"><b>Note: Do not duplicate names</b></p>
+                    <p style="color: red;">
+                        <b>Note: Do not duplicate names</b>
+                    </p>
                 </div>
                 <div class="Join">
-                    <form id="form">
-                        Observe or
+                    <form id="enrollForm">
                         <input type="text" name="myName" placeholder="type in your name" required="" />
                         to
-                        <button type="submit">Play</button>
+                        <button type="submit" disabled>Play</button>
                     </form>
                 </div>
                 <div class="Actions">
@@ -50,7 +51,7 @@
                     <ul class="operations">
                         <li>
                             <button id="showScore">Show</button>
-                            <button id="clearScore" class="danger">Clear</button>
+                            <button id="cleanScore" class="danger">Clear</button>
                         </li>
                     </ul>
                 </div>
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-    <script src="./poker.js"></script>
+    <script src="./wScore.js"></script>
 </body>
 
 </html>
