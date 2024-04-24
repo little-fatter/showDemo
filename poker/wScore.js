@@ -229,7 +229,7 @@ function isRoomIDExist(roomID) {
 
         function switchButton(instance) {
             instanceGroup = instance ? Object.values(instance) : [];
-            const isShowCleanBtn = instanceGroup.some(instance => instance.showManipulator);
+            const isShowCleanBtn = instanceGroup.some(instance => instance.isShowScore);
             isShowCleanBtn ? mountSums() : unMountSums();
             showScoreBtn.style.display = isShowCleanBtn ? 'none' : 'block';
             cleanScoreBtn.style.display = isShowCleanBtn ? 'block' : 'none';
