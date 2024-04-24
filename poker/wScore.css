@@ -16,19 +16,19 @@
 
 .SiteNotification {
     padding: .9em;
-    border: 1px solid hsla(0,0%,58.8%,.3);
+    border: 1px solid hsla(0, 0%, 58.8%, .3);
     border-radius: .4em;
-    background-color: hsla(0,0%,78.4%,.3);
+    background-color: hsla(0, 0%, 78.4%, .3);
     text-align: center;
 }
 
-.SiteNotification >p {
+.SiteNotification>p {
     margin-bottom: .5rem;
     font-weight: 100;
     font-size: .9em;
 }
 
-.SiteNotification >p:last-child {
+.SiteNotification>p:last-child {
     margin-bottom: 0
 }
 
@@ -57,7 +57,7 @@
 .Join button:not([disabled]) {
     cursor: pointer;
     transition: transform .2s ease;
-    background: #9acd32;
+    background: #0d99ff;
     color: #fff;
 }
 
@@ -85,13 +85,13 @@
 
 @media (max-width: 500px) {
     .Join {
-        --join-font-size:1.4em
+        --join-font-size: 1.4em
     }
 }
 
 @media (max-width: 374px) {
     .Join {
-        --join-font-size:1.1em
+        --join-font-size: 1.1em
     }
 }
 
@@ -112,12 +112,9 @@
     list-style-type: none
 }
 
-.Actions button,.Actions ul {
-    -webkit-transition: -webkit-transform .2s ease;
-    transition: -webkit-transform .2s ease;
-    -o-transition: transform .2s ease;
+.Actions button,
+.Actions ul {
     transition: transform .2s ease;
-    transition: transform .2s ease, -webkit-transform .2s ease
 }
 
 .Actions button {
@@ -145,7 +142,7 @@
 
 @media (min-width: 768px) {
     .Actions button:hover {
-        -webkit-transform:scale(1.2);
+        -webkit-transform: scale(1.2);
         transform: scale(1.2)
     }
 
@@ -155,13 +152,33 @@
     }
 }
 
+@keyframes moivePosition {
+    0% {
+        background-position: 0%
+    }
+
+    50% {
+        background-position: 100%
+    }
+
+    100% {
+        background-position: 0%
+    }
+}
+
+@keyframes inflate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
 .Actions .scores {
     margin-bottom: 1rem;
-    background-image: -webkit-gradient(linear,right top, left top,from(#feac5e),color-stop(#c779d0),to(#4bc0c8));
-    background-image: -o-linear-gradient(right,#feac5e,#c779d0,#4bc0c8);
-    background-image: linear-gradient(270deg,#feac5e,#c779d0,#4bc0c8);
+    background-image: repeating-linear-gradient(-190deg, rgb(255 0 0 / 50%) 30px, rgb(255 153 0 / 50%) 60px, rgb(255 255 0 / 50%) 90px, rgb(0 255 0 / 50%) 120px, rgb(0 0 255 / 50%) 150px, rgb(75 0 130 / 50%) 180px, rgb(238 130 238 / 50%) 210px, rgb(255 0 0 / 50%) 230px), repeating-linear-gradient(23deg, red 50px, orange 100px, yellow 150px, green 200px, blue 250px, indigo 300px, violet 350px, red 370px);
     border-radius: var(--actions-button-border-radius);
-    overflow: hidden
+    overflow: hidden;
+    animation: moivePosition 6s infinite;
+    background-size: 150% 100%;
 }
 
 .Actions .scores button {
@@ -186,7 +203,7 @@
 .Actions .operations button {
     width: calc(var(--actions-button-size)*2);
     border-radius: var(--actions-button-border-radius);
-    background: #9acd32;
+    background: #0d99ff;
     color: #fff;
 }
 
@@ -216,8 +233,6 @@
     height: var(--card-height);
     font-size: calc(var(--card-height)/3);
     line-height: var(--card-height);
-    -webkit-transition: all .5s ease;
-    -o-transition: all .5s ease;
     transition: all .5s ease;
     opacity: .3;
     -webkit-perspective: calc(var(--card-height)*2);
@@ -231,38 +246,35 @@
     right: 0;
     bottom: 0;
     left: 0;
-    -webkit-transition: -webkit-transform .5s ease;
-    transition: -webkit-transform .5s ease;
-    -o-transition: transform .5s ease;
     transition: transform .5s ease;
-    transition: transform .5s ease, -webkit-transform .5s ease;
     text-align: center;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     background-color: #fff;
-    -webkit-box-shadow: 0 .1em .1em rgba(0,0,0,.2);
-    box-shadow: 0 .1em .1em rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 .1em .1em rgba(0, 0, 0, .2);
+    box-shadow: 0 .1em .1em rgba(0, 0, 0, .2);
     border-radius: calc(var(--card-height)/10);
     color: #2f4f4f
 }
 
 .Card .back.face {
     color: #b0c4de;
-    background-image: -o-linear-gradient(320deg,#b0c4de,#4682b4);
-    background-image: linear-gradient(130deg,#b0c4de,#4682b4)
+    background-image: -o-linear-gradient(320deg, #b0c4de, #4682b4);
+    background-image: linear-gradient(130deg, #b0c4de, #4682b4)
 }
 
 .Card .front.face {
-    background-image: -o-linear-gradient(320deg,#fff,#d3d3d3);
-    background-image: linear-gradient(130deg,#fff,#d3d3d3);
+    background-image: -o-linear-gradient(320deg, #fff, #d3d3d3);
+    background-image: linear-gradient(130deg, #fff, #d3d3d3);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg)
 }
 
 .Card.voted {
-    opacity: 1
+    opacity: 1;
+    animation: inflate 1s forwards;
 }
 
 .Card.show .back.face {
@@ -277,7 +289,7 @@
 
 @media (max-width: 500px) {
     .Card {
-        --card-height:100px;
+        --card-height: 100px;
         --card-width: 67px
     }
 }
@@ -299,7 +311,8 @@
     margin: 0 0 1rem
 }
 
-.Votes dd,.Votes dt {
+.Votes dd,
+.Votes dt {
     width: var(--vote-width);
     margin: 0 auto
 }
@@ -319,7 +332,7 @@
 
 @media (max-width: 500px) {
     .Votes {
-        --vote-width:67px;
+        --vote-width: 67px;
     }
 
     .Votes li {
@@ -329,14 +342,14 @@
 
 @media (max-width: 374px) {
     .Votes li {
-        min-width:33%
+        min-width: 33%
     }
 }
 
 .Room {
     display: grid;
-    grid-template-rows: repeat(4,-webkit-min-content);
-    grid-template-rows: repeat(4,min-content);
+    grid-template-rows: repeat(4, -webkit-min-content);
+    grid-template-rows: repeat(4, min-content);
     grid-row-gap: 1rem;
     row-gap: 1rem;
     -webkit-box-sizing: border-box;
@@ -351,18 +364,20 @@
     padding: 0
 }
 
-#root,body,html {
+#root,
+body,
+html {
     height: 100%
 }
 
 body {
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     font-size: 16px;
 }
 
 @media screen and (max-width: 500px) {
     body {
-        font-size:12px
+        font-size: 12px
     }
 }
 
